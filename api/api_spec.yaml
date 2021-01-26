@@ -1,0 +1,49 @@
+openapi: '3.0.0'
+info:
+  description: 'Test API REST example specification'
+  version: '1.0.0'
+  title: 'Test API REST'
+
+servers:
+  - url: '{protocol}://{host}:{port}'
+    variables:
+      protocol:
+        default: http
+      host:
+        default: localhost
+      port:
+        default: '55000'
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      x-basicInfoFunc: api.basic_login
+
+  parameters:
+    path:
+      in: query
+      name: path
+      required: true
+      description: "File path"
+      schema:
+        type: string
+
+paths:
+  /file:
+    get:
+      summary: "Read file content"
+      description: "Read file"
+      operationId: api.read_file_controller
+      parameters:
+        - $ref: '#/components/parameters/path'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: "File content"
+          content:
+            text/plain:
+              example:
+                "Test file"

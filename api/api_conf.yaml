@@ -1,0 +1,4 @@
+# Test API configuration example
+
+host: localhost
+port: 55000
